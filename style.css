@@ -301,7 +301,6 @@
     pointer-events: auto;
   }
   .seat.selected {
-    transform: 0.80;
     background: rgba(255, 165, 0, 0.3); 
   }
   .seat.occupied {

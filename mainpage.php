@@ -216,7 +216,8 @@
 
     function updateSeatDisplay() {
       document.querySelectorAll('.seat').forEach(seatBtn => {
-        seatBtn.classList.toggle('selected', bookingState.seats.includes(seatBtn.textContent));
+        const seatId = seatBtn.textContent.trim();
+        seatBtn.classList.toggle('selected', bookingState.seats.includes(seatId));
       });
     }
 
