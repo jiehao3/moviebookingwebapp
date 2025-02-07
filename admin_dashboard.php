@@ -9,6 +9,7 @@
     $sql = "SELECT * FROM movie";
     $result = $conn->query($sql);
 ?>
+<link rel="stylesheet" href="style.css">
   <style>
       body {
           margin: 0;
@@ -18,7 +19,7 @@
           align-items: center;
           height: 100vh;
           background: linear-gradient(135deg, #000000, #0f2027, #2c5364);
-          font-family: 'Arial', sans-serif;
+          font-family: 'Poppins', sans-serif;
           color: #ffffff;
       }
 
@@ -45,7 +46,7 @@
         top: 50%;
         padding: auto;
         margin-top: 20px;
-        margin-left: 10px;
+        margin-left: 70px;
         transform: translateY(-50%);
         background: none;
         border: none;
@@ -67,6 +68,7 @@
           margin-top: 20px;
           width: 100%;
           max-width: 2000px;
+          justify-content: center;
           padding: 20px;
           background: rgba(0, 0, 0, 0.4);
           border-radius: 15px;
@@ -93,6 +95,7 @@
       }
 
       .dashboard h2 {
+        text-align: center;
           color: #00bfff;
           margin-bottom: 20px;
           font-size: 24px;
@@ -102,6 +105,8 @@
           display: flex;
           flex-wrap: wrap;
           gap: 10px;
+          justify-content: center;
+          
       }
 
       .movie {
@@ -156,14 +161,13 @@
   </style>
 </head>
 <body>
-  <!-- Admin Dashboard -->
   <header>
       <button class="back-button" onclick="window.location.href='mainpage.php'">Back</button>
       <h1>Admin Dashboard</h1>
   </header>
   <div class="dashboard">
       <button id="addMovieBtn" onclick="window.location.href='addingform.html'">Add Movie</button>
-      <h2>Current Movies</h2>
+      <h2>Current Movies:</h2>
       <div id="moviesList">
       <?php if ($result->num_rows > 0): ?>
               <?php while($row = $result->fetch_assoc()): ?>

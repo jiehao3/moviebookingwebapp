@@ -1,7 +1,6 @@
-  /* styles.css */
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;900&display=swap');
 
-  /* General Styles */
+
   body {
     font-family: 'Poppins', sans-serif;
     background: #000;
@@ -20,7 +19,7 @@
   }
 
  
-  /* Theme Toggle Styles */
+  /* for dark mode*/
   .theme-toggle {
     margin-top: 10px;
     display: flex;
@@ -68,8 +67,6 @@
   }
 
  
-
-  /* Top Navigation Bar */
   .top-nav {
     position: fixed;
     top: 0;
@@ -83,8 +80,6 @@
   }
   
     
-  
-
   .nav-links {
     display: flex;
     gap: 20px;
@@ -119,7 +114,6 @@
     display: flex;
     align-items: center;
     gap: 20px;
-    /* Ensure the header doesn’t shrink too much */
     flex-shrink: 0;
     justify-content: flex-end;
   }
@@ -146,8 +140,6 @@
     outline: none;
   }
 
-
-  /* Movie Selection */
   .movie-selection {
     padding: 20px;
     display: grid;
@@ -226,8 +218,6 @@
     background: #ff6600;
   }
   
-
-  /* Modal Styles */
   .modal-overlay {
     position: fixed;
     top: 0;

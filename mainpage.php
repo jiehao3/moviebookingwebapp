@@ -9,7 +9,6 @@
       $sql = "SELECT DISTINCT title, image_path FROM movie";
       $result = $conn->query($sql);
   ?>
-
   <link rel="stylesheet" href="style.css">
 </head>
 <body>

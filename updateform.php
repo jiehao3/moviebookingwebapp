@@ -1,9 +1,7 @@
 <?php
 include 'server.php';
-
-// Check if the ID is set
 if (!isset($_POST['id'])) {
-    die("Invalid request. Movie ID is missing.");
+    die("pls provide movie id");
 }
 
 $id = $_POST['id'];
@@ -29,79 +27,9 @@ $conn->close();
     <title>Update Movie</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style2.css">
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: linear-gradient(135deg, #000000, #0f2027, #2c5364);
-            font-family: 'Arial', sans-serif;
-            color: #ffffff;
-            overflow: hidden;
-        }
-        .container {
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            width: 100%;
-            max-width: 500px;
-            padding: 30px;
-        }
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #00bfff;
-            font-size: 28px;
-            letter-spacing: 1px;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-        label {
-            font-size: 16px;
-            margin-bottom: 8px;
-            color: #00bfff;
-        }
-        input[type="text"], input[type="file"], input[type="datetime-local"], select {
-            padding: 12px;
-            margin-bottom: 20px;
-            border: none;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            color: #ffffff;
-            font-size: 16px;
-        }
-        input[type="text"]::placeholder,
-        input[type="datetime-local"]::placeholder {
-            color: rgba(255, 255, 255, 0.6);
-        }
-        select {
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            background: rgba(255, 255, 255, 0.1);
-            cursor: pointer;
-        }
-        input[type="submit"] {
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            background: #00bfff;
-            color: #000000;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s ease;
-        }
-        input[type="submit"]:hover {
-            background: #009acd;
-        }
+        
     </style>
 <body>
     <div class="container">

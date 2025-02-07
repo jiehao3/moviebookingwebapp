@@ -77,86 +77,8 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login</title>
+    <link rel="stylesheet" href="style2.css">
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: linear-gradient(135deg, #000000, #0f2027, #2c5364);
-            font-family: 'Arial', sans-serif;
-            color: #ffffff;
-            overflow: hidden;
-        }
-
-        .container {
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            width: 100%;
-            max-width: 400px;
-            padding: 30px;
-        }
-
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #00bfff;
-            font-size: 28px;
-            letter-spacing: 1px;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        label {
-            font-size: 16px;
-            margin-bottom: 8px;
-            color: #00bfff;
-        }
-
-        input[type="text"], input[type="password"] {
-            padding: 12px;
-            margin-bottom: 20px;
-            border: none;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            color: #ffffff;
-            font-size: 16px;
-        }
-
-        input[type="text"]::placeholder, input[type="password"]::placeholder {
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        button {
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            background: #00bfff;
-            color: #000000;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s ease;
-        }
-
-        button:hover {
-            background: #009acd;
-        }
-
-        .error-message {
-            color: #ff4d4d;
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-
         
     </style>
 </head>
@@ -175,7 +97,7 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" placeholder="Enter password" required>
 
-            <button type="submit" name="login">Login</button>
+            <input type="submit" name="login" value = "Log In"></input>
         </form>
     </div>
 </body>
