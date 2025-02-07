@@ -43,7 +43,7 @@ $conn->close();
             color: #ffffff;
             overflow: hidden;
         }
-        .glass-container {
+        .container {
             background: rgba(0, 0, 0, 0.4);
             backdrop-filter: blur(10px);
             border-radius: 15px;
@@ -104,7 +104,7 @@ $conn->close();
         }
     </style>
 <body>
-    <div class="glass-container">
+    <div class="container">
         <h2>Update Movie</h2>
         <form action="updatetodb.php" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?php echo htmlspecialchars($id); ?>">

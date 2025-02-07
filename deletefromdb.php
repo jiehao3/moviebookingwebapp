@@ -3,8 +3,6 @@ include 'server.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = intval($_POST['id']);
-    
-    // Prepare and execute the delete statement
     $sql = "DELETE FROM movie WHERE id = $id";
     if ($conn->query($sql) === TRUE) {
         header("Location: admin_dashboard.php");

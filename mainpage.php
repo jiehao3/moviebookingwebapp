@@ -31,7 +31,7 @@
     </div>
   </div>
 
-  <br><br><br><br><br><br><br><br><br><br><br>
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
   <div class="search-bar">
       <input type="text" placeholder = "Search Movies...">
@@ -160,19 +160,20 @@
     }
 
     function populateTimes(showings) {
-   
-      const times = showings.map(showing => {
-          const date = new Date(showing.show_time);
-          return date.toLocaleString('en-US', {
-              hour: 'numeric',
-              minute: '2-digit',
-              hour12: true
-          });
+      var timenow = new Date();
+      var html = "";
+      showings.forEach(function(showing) {
+        var showDate = new Date(showing.show_time);
+        var formattedTime = showDate.toLocaleString('en-US', {hour: 'numeric', minute: '2-digit', hour12: true});
+        if (showDate < timenow) {
+          html += `<button class="optiondisabled-btn" onclick="selectTime('${formattedTime}')">${formattedTime}</button>`;
+        }
+        else {
+          html += `<button class="option-btn" onclick="selectTime('${formattedTime}')">${formattedTime}</button>`;
+        }
       });
 
-        document.getElementById('timeOptions').innerHTML = times
-            .map(time => `<button class="option-btn" onclick="selectTime('${time}')">${time}</button>`)
-            .join('');
+      document.getElementById('timeOptions').innerHTML = html;
     }
 
     function selectTime(time) {

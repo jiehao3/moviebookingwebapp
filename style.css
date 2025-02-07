@@ -273,6 +273,17 @@
     cursor: pointer;
     transition: 0.3s ease;
   }
+  .optiondisabled-btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    background:  #3a5f72;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s ease;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
   .option-btn:hover {
     background:  #00aaff;
   }

@@ -20,7 +20,7 @@ if (isset($_POST['login'])) {
     }
 }
 
-/*
+/* this is the code that checks if the user is already logged in and redirects them to the dashboard
 if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true) {
     header("Location: admin_dashboard.php"); 
     exit();
@@ -62,7 +62,8 @@ if (isset($_POST['login'])) {
         $error_message = "Invalid username or password.";
     }
 }
-/*
+/* this is the code that checks if the user is already logged in and redirects them to the dashboard
+
 if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true) {
     header("Location: admin_dashboard.php"); 
     exit();
@@ -90,7 +91,7 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
             overflow: hidden;
         }
 
-        .glass-container {
+        .container {
             background: rgba(0, 0, 0, 0.4);
             backdrop-filter: blur(10px);
             border-radius: 15px;
@@ -160,7 +161,7 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
     </style>
 </head>
 <body>
-    <div class="glass-container">
+    <div class="container">
         <h2>Admin Login</h2>
         <?php
         if (isset($error_message)) {
