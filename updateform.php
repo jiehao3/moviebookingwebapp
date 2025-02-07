@@ -28,9 +28,6 @@ $conn->close();
     <link rel="stylesheet" href="style.css">
 </head>
 <link rel="stylesheet" href="style2.css">
-    <style>
-        
-    </style>
 <body>
     <div class="container">
         <h2>Update Movie</h2>

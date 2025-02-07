@@ -76,31 +76,29 @@
       <span class="close-modal" onclick="closeModal()">&times;</span>
       <h2 id="selected-movie-title"></h2>
 
-      <!-- Cinema (Theater) Selection -->
+
       <div class="section" id="cinemaSection">
         <h3>Select Cinema</h3>
-        <!-- Dynamically populated cinemas -->
         <div class="options" id="cinemaOptions"></div>
       </div>
 
-      <!-- Timing Selection -->
       <div class="section" id="timeSection" style="display: none;">
         <h3>Select Time</h3>
         <div class="options" id="timeOptions"></div>
       </div>
 
-      <!-- Seat Selection -->
+
       <div class="section" id="seatSection" style="display: none;">
         <div class="screen">SCREEN</div>
         <div class="seats" id="seatMap"></div>
         <button class="submit-btn" id="submitSeatsBtn" style="display: none;" onclick="showSummary()">Submit Seats</button>
       </div>
 
-      <!-- Booking Summary -->
+
       <div class="section" id="summarySection" style="display: none;">
-        <h3>Booking Summary</h3>
+        <h3 style = "color: #00aaff;">Booking Summary</h3>
           <div id="summaryDetails"></div>
-        <button class="submit-btn" onclick="submitBooking()">Confirm Booking</button>
+        <button class="submit-btn" onclick="submitBooking()">Confirm Booking</button> <!-- change onclick to paypyal logic  -->
       </div>
     </div>
   </div>
@@ -142,10 +140,15 @@
     }
 
     function showSection(sectionId) {
-      ['cinemaSection', 'timeSection', 'seatSection', 'summarySection'].forEach(id => {
-        document.getElementById(id).style.display = id === sectionId ? 'block' : 'none';
-      });
-    }
+    const sections = ['cinemaSection', 'timeSection', 'seatSection', 'summarySection'];
+    sections.forEach(id => {
+      if (id === sectionId) {
+        document.getElementById(id).style.display = 'block';
+      } else {
+        document.getElementById(id).style.display = 'none';
+      }
+    });
+}
 
     function selectCinema(cinema) {
       bookingState.cinema = cinema;
@@ -163,12 +166,13 @@
       var html = "";
       showings.forEach(function(showing) {
         var showDate = new Date(showing.show_time);
+        var formattedDate = showDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
         var formattedTime = showDate.toLocaleString('en-US', {hour: 'numeric', minute: '2-digit', hour12: true});
         if (showDate < timenow) {
-          html += `<button class="optiondisabled-btn" onclick="selectTime('${formattedTime}')">${formattedTime}</button>`;
+          html += `<button class="optiondisabled-btn" onclick="selectTime('${formattedTime}')">${formattedTime} - ${formattedDate}</button>`;
         }
         else {
-          html += `<button class="option-btn" onclick="selectTime('${formattedTime}')">${formattedTime}</button>`;
+          html += `<button class="option-btn" onclick="selectTime('${formattedTime}')">${formattedTime} - ${formattedDate}</button>`;
         }
       });
 
@@ -186,18 +190,22 @@
       let seatsHTML = '';
 
       rows.forEach(row => {
-        for (let i = 1; i <= 8; i++) {
-          const seat = `${row}${i}`;
-          const isOccupied = Math.random() < 0.3;
-          seatsHTML += `
-            <button class="seat ${isOccupied ? 'occupied' : ''}" 
-              ${isOccupied ? 'disabled' : ''}
-              onclick="toggleSeat('${seat}')">
-              ${seat}
-            </button>`;
-        }
-      });
+      for (let i = 1; i <= 8; i++) {
+        let seat = row + i;
+        let occupied = Math.random() < 0.3; // 30% chance seat is occupied
 
+        let seatClass = "seat";
+        if (occupied) {
+          seatClass += " occupied";
+        }
+
+        let disabledAttr = "";
+        if (occupied) {
+          disabledAttr = "disabled";
+        }
+        seatsHTML += "<button class='" + seatClass + "' " + disabledAttr + " onclick='toggleSeat(\"" + seat + "\")'>" + seat + "</button>";
+      }
+    });
       document.getElementById('seatMap').innerHTML = seatsHTML;
     }
 
@@ -210,8 +218,12 @@
       }
       updateSeatDisplay();
       const submitBtn = document.getElementById('submitSeatsBtn');
-      submitBtn.style.display = bookingState.seats.length > 0 ? 'block' : 'none';
-      
+      if (bookingState.seats.length > 0) {
+        submitBtn.style.display = 'block';
+      } else {
+        submitBtn.style.display = 'none';
+      }
+            
     }
 
     function updateSeatDisplay() {

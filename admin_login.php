@@ -78,9 +78,6 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login</title>
     <link rel="stylesheet" href="style2.css">
-    <style>
-        
-    </style>
 </head>
 <body>
     <div class="container">

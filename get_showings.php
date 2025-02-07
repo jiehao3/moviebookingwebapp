@@ -1,6 +1,5 @@
 <?php
 include 'server.php';
-
 $movieTitle = $_GET['movie'];
 $cinema = isset($_GET['cinema']) ? $_GET['cinema'] : '';
 
@@ -17,7 +16,6 @@ if ($result) {
         $showings[] = $row;
     }
 }
-
 header('Content-Type: application/json');
 echo json_encode($showings);
 $conn->close();
