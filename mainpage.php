@@ -94,12 +94,13 @@
       <div class="section" id="seatSection" style="display: none;">
         <div class="screen">SCREEN</div>
         <div class="seats" id="seatMap"></div>
+        <button class="submit-btn" id="submitSeatsBtn" style="display: none;" onclick="showSummary()">Submit Seats</button>
       </div>
 
       <!-- Booking Summary -->
       <div class="section" id="summarySection" style="display: none;">
         <h3>Booking Summary</h3>
-        <div id="summaryDetails"></div>
+          <div id="summaryDetails"></div>
         <button class="submit-btn" onclick="submitBooking()">Confirm Booking</button>
       </div>
     </div>
@@ -113,13 +114,11 @@
       seats: []
     };
 
-    // Open Modal
+    
     function openModal(movieTitle) {
       bookingState.movie = movieTitle;
       document.getElementById('selected-movie-title').textContent = movieTitle;
       document.getElementById('modal-overlay').style.display = 'flex';
-
-      // Fetch available showings for the movie
       fetch(`get_showings.php?movie=${encodeURIComponent(movieTitle)}`)
         .then(response => response.json())
         .then(data => {
@@ -129,13 +128,12 @@
       
       showSection('cinemaSection');
     }
-    // Close Modal
+    
     function closeModal() {
       document.getElementById('modal-overlay').style.display = 'none';
       resetBooking();
     }
     function populateCinemas(showings) {
-      // Get unique theaters from the showings array
       const cinemas = [...new Set(showings.map(showing => showing.theater))];
       const cinemaOptions = cinemas.map(cinema => 
           `<button class="option-btn" onclick="selectCinema('${cinema}')">${cinema}</button>`
@@ -144,14 +142,12 @@
       document.getElementById('cinemaOptions').innerHTML = cinemaOptions;
     }
 
-    // Show Specific Section in Modal
     function showSection(sectionId) {
       ['cinemaSection', 'timeSection', 'seatSection', 'summarySection'].forEach(id => {
         document.getElementById(id).style.display = id === sectionId ? 'block' : 'none';
       });
     }
 
-    // Select Cinema
     function selectCinema(cinema) {
       bookingState.cinema = cinema;
       fetch(`get_showings.php?movie=${encodeURIComponent(bookingState.movie)}&cinema=${encodeURIComponent(cinema)}`)
@@ -163,9 +159,8 @@
       showSection('timeSection');
     }
 
-    // Populate Timings
     function populateTimes(showings) {
-      // Map through the showings to extract times
+   
       const times = showings.map(showing => {
           const date = new Date(showing.show_time);
           return date.toLocaleString('en-US', {
@@ -180,14 +175,12 @@
             .join('');
     }
 
-    // Select Time
     function selectTime(time) {
       bookingState.time = time;
       showSection('seatSection');
       generateSeats();
     }
 
-    // Generate Seats
     function generateSeats() {
       const rows = ['A', 'B', 'C', 'D'];
       let seatsHTML = '';
@@ -195,7 +188,7 @@
       rows.forEach(row => {
         for (let i = 1; i <= 8; i++) {
           const seat = `${row}${i}`;
-          const isOccupied = Math.random() < 0.3; // Randomly mark some seats as occupied
+          const isOccupied = Math.random() < 0.3;
           seatsHTML += `
             <button class="seat ${isOccupied ? 'occupied' : ''}" 
               ${isOccupied ? 'disabled' : ''}
@@ -208,7 +201,6 @@
       document.getElementById('seatMap').innerHTML = seatsHTML;
     }
 
-    // Toggle Seat Selection
     function toggleSeat(seat) {
       const index = bookingState.seats.indexOf(seat);
       if (index === -1) {
@@ -217,17 +209,17 @@
         bookingState.seats.splice(index, 1);
       }
       updateSeatDisplay();
-      showSummary();
+      const submitBtn = document.getElementById('submitSeatsBtn');
+      submitBtn.style.display = bookingState.seats.length > 0 ? 'block' : 'none';
+      
     }
 
-    // Update Seat Display
     function updateSeatDisplay() {
       document.querySelectorAll('.seat').forEach(seatBtn => {
         seatBtn.classList.toggle('selected', bookingState.seats.includes(seatBtn.textContent));
       });
     }
 
-    // Show Booking Summary
     function showSummary() {
       showSection('summarySection');
       document.getElementById('summaryDetails').innerHTML = `
@@ -239,20 +231,17 @@
       `;
     }
 
-    // Submit Booking
     function submitBooking() {
       alert(`Booking Confirmed!\n${document.getElementById('summaryDetails').innerText}`);
       closeModal();
     }
 
-    // Reset Booking State
     function resetBooking() {
       bookingState = { movie: '', cinema: '', time: '', seats: [] };
       document.getElementById('seatMap').innerHTML = '';
       document.getElementById('summaryDetails').innerHTML = '';
     }
 
-    // Theme Toggle
     const themeSwitch = document.getElementById('theme-switch');
     const topNav = document.querySelector('.top-nav');
     const darkmode = document.getElementById('darkmode')
@@ -269,7 +258,7 @@
     adminLink.style.color = "black";
     darkmode.style.color = "black";
   } else {
-    // Dark mode: Set colors for links and top nav
+
     topNav.style.background = "linear-gradient(to bottom, #333, #000)";
     topNav.style.color = "white";
     homeLink.style.color = "white";
@@ -278,8 +267,6 @@
     darkmode.style.color = "white";
     }});
   
-
-    // Tab Switching
     function showTab(tabName) {
       const nowShowing = document.getElementById('now-showing-container');
       const comingSoon = document.getElementById('coming-soon-container');
@@ -297,7 +284,6 @@
       }
     }
 
-    // Search Functionality
     const searchInput = document.querySelector('.search-bar input');
     searchInput.addEventListener('input', () => {
       const searchTerm = searchInput.value.toLowerCase();

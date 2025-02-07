@@ -280,6 +280,7 @@
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     gap: 5px;
+    padding: 20px 0;
   }
   .screen {
     text-align: center;
@@ -295,13 +296,22 @@
     background: #ffd700; 
     cursor: pointer;
     transition: 0.2s ease;
+    position: relative;
+    z-index: 1;
+    pointer-events: auto;
   }
   .seat.selected {
+    transform: 0.80;
     background: rgba(255, 165, 0, 0.3); 
   }
   .seat.occupied {
     background: #ff0000; 
     cursor: not-allowed;
+    pointer-events: none;
+  }
+  .seat:not(.occupied):hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
   }
   .submit-btn {
     width: 100%;
@@ -314,17 +324,5 @@
     transition: 0.3s ease;
   }
   .submit-btn:hover {
-    background:  #00aaff;
-  }
-  .admin-login a {
-    color: #fff;
-    font-size: 1rem;
-    text-decoration: none;
-    padding: 8px 12px;
-    border: 1px solid  #00aaff;
-    border-radius: 4px;
-    transition: 0.3s ease;
-  }
-  .admin-login a:hover {
     background:  #00aaff;
   }
