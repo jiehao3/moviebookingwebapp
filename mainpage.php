@@ -165,14 +165,15 @@
       var timenow = new Date();
       var html = "";
       showings.forEach(function(showing) {
+        var normalform = showing.show_time;
         var showDate = new Date(showing.show_time);
         var formattedDate = showDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
         var formattedTime = showDate.toLocaleString('en-US', {hour: 'numeric', minute: '2-digit', hour12: true});
         if (showDate < timenow) {
-          html += `<button class="optiondisabled-btn" onclick="selectTime('${formattedTime}')">${formattedTime} - ${formattedDate}</button>`;
+          html += `<button class="optiondisabled-btn" onclick="selectTime('${normalform}')">${formattedTime} - ${formattedDate}</button>`;
         }
         else {
-          html += `<button class="option-btn" onclick="selectTime('${formattedTime}')">${formattedTime} - ${formattedDate}</button>`;
+          html += `<button class="option-btn" onclick="selectTime('${normalform}')">${formattedTime} - ${formattedDate}</button>`;
         }
       });
 
@@ -186,28 +187,38 @@
     }
 
     function generateSeats() {
-      const rows = ['A', 'B', 'C', 'D'];
-      let seatsHTML = '';
-
-      rows.forEach(row => {
-      for (let i = 1; i <= 8; i++) {
-        let seat = row + i;
-        let occupied = Math.random() < 0.3; // 30% chance seat is occupied
-
-        let seatClass = "seat";
-        if (occupied) {
-          seatClass += " occupied";
+    fetch(`retrieveseats.php?movie=${encodeURIComponent(bookingState.movie)}&cinema=${encodeURIComponent(bookingState.cinema)}&time=${encodeURIComponent(bookingState.time)}`)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
         }
+        return response.json();
+    })
+    .then(bookedSeats => {
+        console.log("Booked Seats:", bookedSeats); // Debug log
+        const rows = ['A', 'B', 'C', 'D'];
+        let seatsHTML = '';
 
-        let disabledAttr = "";
-        if (occupied) {
-          disabledAttr = "disabled";
-        }
-        seatsHTML += "<button class='" + seatClass + "' " + disabledAttr + " onclick='toggleSeat(\"" + seat + "\")'>" + seat + "</button>";
-      }
+        rows.forEach(row => {
+            for (let i = 1; i <= 8; i++) {
+                const seat = `${row}${i}`;
+                const isOccupied = bookedSeats.includes(seat);
+
+                seatsHTML += `
+                    <button class="seat ${isOccupied ? 'occupied' : ''}" 
+                        ${isOccupied ? 'disabled' : ''}
+                        onclick="toggleSeat('${seat}')">
+                        ${seat}
+                    </button>`;
+            }
+        });
+        document.getElementById('seatMap').innerHTML = seatsHTML;
+    })
+    .catch(error => {
+        console.error("Error fetching seats:", error);
     });
-      document.getElementById('seatMap').innerHTML = seatsHTML;
-    }
+}
+
 
     function toggleSeat(seat) {
       const index = bookingState.seats.indexOf(seat);
@@ -238,16 +249,34 @@
       document.getElementById('summaryDetails').innerHTML = `
         <p><strong>Movie:</strong> ${bookingState.movie}</p>
         <p><strong>Cinema:</strong> ${bookingState.cinema}</p>
-        <p><strong>Time:</strong> ${bookingState.time}</p>
+        <p><strong>Time:</strong> ${Date(bookingState.time)}</p>
         <p><strong>Seats:</strong> ${bookingState.seats.join(', ')}</p>
         <p><strong>Total:</strong> $${bookingState.seats.length * 15}</p>
       `;
     }
 
     function submitBooking() {
-      alert(`Booking Confirmed!\n${document.getElementById('summaryDetails').innerText}`);
-      closeModal();
-    }
+        const formData = new FormData();
+        formData.append('movie', bookingState.movie);
+        formData.append('cinema', bookingState.cinema);
+        formData.append('time', bookingState.time);
+        formData.append('seats', JSON.stringify(bookingState.seats));
+        console.log("Form Data:", formData); 
+        
+        fetch('bookseats.php', {
+        method: 'POST',
+        body: formData
+        })
+        .then(response => response.text())
+        .then(result => {
+            alert(result);
+            closeModal();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Booking failed!');
+        });
+}
 
     function resetBooking() {
       bookingState = { movie: '', cinema: '', time: '', seats: [] };
