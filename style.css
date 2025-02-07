@@ -17,6 +17,9 @@
   .bolder{
     font-weight: bolder;
   }
+  .spacer{
+    margin-top: 600px;
+  }
 
  
   /* for dark mode*/
@@ -217,7 +220,7 @@
   .movie-card button:hover {
     background: #ff6600;
   }
-  
+
   .modal-overlay {
     position: fixed;
     top: 0;

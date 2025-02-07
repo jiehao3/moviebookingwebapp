@@ -30,7 +30,7 @@
     </div>
   </div>
 
-  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <div class = "spacer"></div>
 
   <div class="search-bar">
       <input type="text" placeholder = "Search Movies...">
