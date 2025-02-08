@@ -188,7 +188,7 @@
 
     function generateSeats() {
     fetch(`retrieveseats.php?movie=${encodeURIComponent(bookingState.movie)}&cinema=${encodeURIComponent(bookingState.cinema)}&time=${encodeURIComponent(bookingState.time)}`)
-    .then(response => {
+    .then(function(response) {
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -218,8 +218,6 @@
         console.error("Error fetching seats:", error);
     });
 }
-
-
     function toggleSeat(seat) {
       const index = bookingState.seats.indexOf(seat);
       if (index === -1) {
@@ -254,7 +252,6 @@
         <p><strong>Total:</strong> $${bookingState.seats.length * 15}</p>
       `;
     }
-
     function submitBooking() {
         const formData = new FormData();
         formData.append('movie', bookingState.movie);
@@ -283,7 +280,6 @@
       document.getElementById('seatMap').innerHTML = '';
       document.getElementById('summaryDetails').innerHTML = '';
     }
-
     const themeSwitch = document.getElementById('theme-switch');
     const topNav = document.querySelector('.top-nav');
     const darkmode = document.getElementById('darkmode')
@@ -327,10 +323,10 @@
     }
 
     const searchInput = document.querySelector('.search-bar input');
-    searchInput.addEventListener('input', () => {
+    searchInput.addEventListener('input', function() {
       const searchTerm = searchInput.value.toLowerCase();
       const movieCards = document.querySelectorAll('.movie-card');
-      movieCards.forEach(card => {
+      movieCards.forEach(function(card) {
         const title = card.querySelector('img').alt.toLowerCase();
         if (title.includes(searchTerm)) {
           card.style.display = '';
